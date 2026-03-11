@@ -1,0 +1,67 @@
+{
+  "name": "@adddog/1password-env",
+  "type": "module",
+  "version": "0.0.1",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "bin": {
+    "op-env": "./src/cli.ts"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./src/index.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@1password/sdk": "^0.1.7",
+    "@commander-js/extra-typings": "^14.0.0",
+    "commander": "^14.0.3"
+  },
+  "scripts": {
+    "build": "tsup ./src --outDir dist --clean --format esm,cjs --shims --dts --platform node --entry.index src/index.ts --entry.cli src/cli.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "types": "tsc -p tsconfig.typecheck.json",
+    "test": "echo 'no tests yet'",
+    "knip": "knip",
+    "release": "bumpp --yes --no-push --no-tag --release patch",
+    "prepublishOnly": "pnpm run types && pnpm run build",
+    "prepack": "pnpm run prepublishOnly",
+    "version:patch": "npm version patch --no-git-tag-version"
+  },
+  "devDependencies": {
+    "@adddog/monorepo-consistency": "workspace:*",
+    "@types/node": "^22.0.0",
+    "bumpp": "^10.4.1",
+    "eslint": "^10.0.3",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">= 22",
+    "pnpm": ">= 10",
+    "npm": ">= 11"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "exports": {
+      "./package.json": "./package.json",
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "module": "./dist/index.js",
+        "require": "./dist/index.cjs"
+      }
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "bin": {
+      "op-env": "./dist/cli.js"
+    }
+  }
+}
