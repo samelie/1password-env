@@ -1,0 +1,21 @@
+{
+  "name": "adddog-tools",
+  "owner": {
+    "name": "adddog"
+  },
+  "metadata": {
+    "description": "adddog Claude Code plugins"
+  },
+  "plugins": [
+    {
+      "name": "1password-env",
+      "source": {
+        "source": "npm",
+        "package": "@adddog/1password-env",
+        "version": ">=0.0.1"
+      },
+      "description": "1Password-backed secret management — replaces .env files with vault-backed hydration",
+      "keywords": ["1password", "secrets", "env", "dotenv", "vault"]
+    }
+  ]
+}

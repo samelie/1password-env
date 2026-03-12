@@ -1,0 +1,11 @@
+{
+  "name": "1password-env",
+  "version": "0.0.1",
+  "description": "1Password-backed secret management — replaces .env files with vault-backed hydration",
+  "author": {
+    "name": "adddog"
+  },
+  "repository": "https://github.com/samelie/1password-env",
+  "license": "MIT",
+  "keywords": ["1password", "secrets", "env", "dotenv", "vault"]
+}

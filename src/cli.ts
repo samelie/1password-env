@@ -5,6 +5,7 @@ import { dirname, join, resolve } from "node:path";
 import process from "node:process";
 import { pathToFileURL } from "node:url";
 import { Command } from "@commander-js/extra-typings";
+import { generateCiRefs } from "./ci-refs.js";
 import { hydrateEnv } from "./hydrate.js";
 import { initFromConfig } from "./init.js";
 import { resolveSecrets } from "./resolve.js";
@@ -115,6 +116,16 @@ program
         const { config } = await resolveConfig(opts.config);
         const secrets = await resolveSecrets(config, opts.env);
         for (const [k, v] of Object.entries(secrets)) console.log(`${k}=${v}`);
+    });
+
+program
+    .command("ci-refs")
+    .description("Output 1password/load-secrets-action YAML step for CI workflows")
+    .option("-c, --config <path>", "Path to secrets config file (default: package.json op-env key)")
+    .requiredOption("-e, --env <name...>", "Environment(s) to include")
+    .action(async opts => {
+        const { config } = await resolveConfig(opts.config);
+        console.log(generateCiRefs(config, opts.env));
     });
 
 function requireServiceAccountToken(): void {

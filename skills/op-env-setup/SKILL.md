@@ -7,7 +7,7 @@ description: Interactive guide for setting up @adddog/1password-env in a project
 
 You are guiding a human through setting up `@adddog/1password-env` for their project. This is an interactive, conversational process — ask questions, confirm choices, and explain what's happening at each step.
 
-The package lives at `/Volumes/DriveHard/samelie-monorepo/packages/1password-env/`. Read the README there if you need API details beyond what's covered here.
+The package source lives at `${CLAUDE_PLUGIN_ROOT}`. Read the README there if you need API details beyond what's covered here.
 
 ## Overview
 
