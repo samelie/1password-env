@@ -94,15 +94,18 @@ export async function initFromConfig(
 
     // Create items for each environment
     const items: InitResult["items"] = [];
+    // Track items created in this run to avoid duplicates when multiple environments share an item
+    const itemsCreated = new Set<string>();
 
     for (const [envName, envConfig] of Object.entries(config.environments)) {
         const vault = envConfig.vault ?? config.vault;
         ensureVault(vault);
-        const existed = !vaultsCreated.has(vault) && itemExists(vault, envConfig.item);
+        const itemKey = `${vault}/${envConfig.item}`;
+        const existed = itemsCreated.has(itemKey) || itemExists(vault, envConfig.item);
 
         if (existed) {
             // eslint-disable-next-line no-console
-            console.log(`item exists: ${vault}/${envConfig.item} (env: ${envName})`);
+            console.log(`item exists: ${itemKey} (env: ${envName})`);
             items.push({ name: envConfig.item, env: envName, created: false, fieldsSeeded: 0 });
             continue;
         }
@@ -130,13 +133,15 @@ export async function initFromConfig(
 
         if (dryRun) {
             // eslint-disable-next-line no-console
-            console.log(`[dry-run] would create item: ${vault}/${envConfig.item} (${fieldArgs.length} fields, ${seeded} seeded)`);
+            console.log(`[dry-run] would create item: ${itemKey} (${fieldArgs.length} fields, ${seeded} seeded)`);
         } else {
             const cmd = `item create --vault "${vault}" --category "Secure Note" --title "${envConfig.item}" ${fieldArgs.join(" ")}`;
             op(cmd);
             // eslint-disable-next-line no-console
-            console.log(`created item: ${vault}/${envConfig.item} (${fieldArgs.length} fields, ${seeded} seeded)`);
+            console.log(`created item: ${itemKey} (${fieldArgs.length} fields, ${seeded} seeded)`);
         }
+
+        itemsCreated.add(itemKey);
 
         items.push({ name: envConfig.item, env: envName, created: true, fieldsSeeded: seeded });
     }

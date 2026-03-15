@@ -22,7 +22,7 @@ export async function resolveSecrets(
 
     const client = await sdk.createClient({
         auth: token,
-        integrationName: "@adddog/1password-env",
+        integrationName: "adddog-1password-env",
         integrationVersion: "v1.0.0",
     });
 
