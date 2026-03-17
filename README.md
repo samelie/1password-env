@@ -180,6 +180,87 @@ For CI, use the official 1Password action instead of this package:
     MY_SECRET: op://vault/item/field
 ```
 
+## Adding & updating secrets
+
+### Add a new secret
+
+1. **Add the field to your config** (`package.json` or `secrets.ts`):
+   ```jsonc
+   "fields": [
+     "EXISTING_SECRET",
+     "NEW_API_KEY"  // <-- add here
+   ]
+   ```
+
+2. **Create the field in 1Password** via the `op` CLI:
+   ```bash
+   # Add a field to an existing item
+   op item edit "remote" --vault "my-project" "NEW_API_KEY=sk-live-abc123"
+
+   # Or create via the 1Password desktop/web app
+   ```
+
+3. **Re-hydrate** to pull the new value into your `.env`:
+   ```bash
+   op-env hydrate
+   ```
+
+### Update an existing secret
+
+No config change needed — just update the value in 1Password:
+
+```bash
+op item edit "remote" --vault "my-project" "COOKIE_SECRET=new-value-here"
+```
+
+Then re-hydrate:
+
+```bash
+op-env hydrate
+```
+
+### Add a new environment
+
+1. **Add the environment to your config**:
+   ```jsonc
+   "environments": {
+     "remote": { /* ... */ },
+     "staging": {
+       "item": "staging",
+       "fields": ["DB_URL", "API_KEY"],
+       "outputFile": ".config/.env.staging"
+     }
+   }
+   ```
+
+2. **Scaffold the new vault item**:
+   ```bash
+   op-env init
+   ```
+
+3. **Set values in 1Password** (via `op` CLI or the app), then hydrate:
+   ```bash
+   op-env hydrate -e staging
+   ```
+
+### Summary
+
+| Task | Config change? | 1Password change? | Command |
+|------|:-:|:-:|---------|
+| Add secret | Yes — add to `fields` | Yes — `op item edit` | `op-env hydrate` |
+| Update secret value | No | Yes — `op item edit` | `op-env hydrate` |
+| Add environment | Yes — add to `environments` | Yes — `op-env init` | `op-env hydrate` |
+| Add literal (non-secret) | Yes — add to `literals` | No | `op-env hydrate` |
+
+## Claude Code Plugin
+
+```bash
+claude plugin marketplace add samelie/1password-env
+claude plugin install 1password-env
+```
+
+Adds the `/op-env-setup` skill for interactive 1Password secret management setup.
+
 ## Output formats
 
 **dotenv** (default):
