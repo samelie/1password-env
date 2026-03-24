@@ -41,7 +41,7 @@
     "bumpp": "^11.0.1",
     "eslint": "^10.1.0",
     "tsup": "^8.5.1",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "engines": {
     "node": ">= 22",
