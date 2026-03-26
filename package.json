@@ -31,9 +31,9 @@
     "test": "echo 'no tests yet'",
     "knip": "knip",
     "release": "bumpp --yes --no-push --no-tag --release patch",
-    "prepublishOnly": "pnpm run types && pnpm run build",
     "prepack": "pnpm run prepublishOnly",
-    "version:patch": "npm version patch --no-git-tag-version"
+    "version:patch": "npm version patch --no-git-tag-version",
+    "dev": "tsx src/index.ts"
   },
   "devDependencies": {
     "@adddog/monorepo-consistency": "workspace:*",
@@ -65,5 +65,6 @@
     "bin": {
       "op-env": "./dist/cli.js"
     }
-  }
+  },
+  "private": true
 }
