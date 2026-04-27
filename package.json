@@ -27,7 +27,7 @@
     "build": "tsup ./src --outDir dist --clean --format esm,cjs --shims --dts --platform node --entry.index src/index.ts --entry.cli src/cli.ts",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "types": "tsc -p tsconfig.typecheck.json",
+    "types": "tsgo -p tsconfig.typecheck.json",
     "test": "echo 'no tests yet'",
     "knip": "knip",
     "release": "bumpp --yes --no-push --no-tag --release patch",
@@ -38,10 +38,10 @@
   "devDependencies": {
     "@adddog/monorepo-consistency": "workspace:*",
     "@types/node": "^25.6.0",
+    "@typescript/native-preview": "beta",
     "bumpp": "^11.0.1",
     "eslint": "^10.2.1",
-    "tsup": "^8.5.1",
-    "typescript": "^6.0.3"
+    "tsup": "^8.5.1"
   },
   "engines": {
     "node": ">= 22",
