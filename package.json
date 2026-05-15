@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@adddog/monorepo-consistency": "workspace:*",
-    "@types/node": "^25.6.2",
+    "@types/node": "^25.7.0",
     "@typescript/native-preview": "beta",
     "bumpp": "^11.1.0",
     "eslint": "^10.3.0",
