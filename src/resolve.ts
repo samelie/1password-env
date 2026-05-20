@@ -1,6 +1,5 @@
 import type { SecretsConfig } from "./types.js";
 import process from "node:process";
-import * as sdk from "@1password/sdk";
 
 export function defineSecrets(config: SecretsConfig): SecretsConfig {
     return config;
@@ -14,12 +13,19 @@ export async function resolveSecrets(
     if (!envConfig) throw new Error(`Unknown environment: ${envName}`);
 
     const token = process.env.OP_SERVICE_ACCOUNT_TOKEN;
+
     if (!token) {
-        throw new Error(
-            "OP_SERVICE_ACCOUNT_TOKEN not set. Create a service account at https://my.1password.com/developer-tools/directory",
-        );
+        const result: Record<string, string> = {};
+        for (const field of envConfig.fields) {
+            const envKey = typeof field === "string" ? field : field.env;
+            const value = process.env[envKey];
+            if (value) result[envKey] = value;
+        }
+        if (envConfig.literals) Object.assign(result, envConfig.literals);
+        return result;
     }
 
+    const sdk = await import("@1password/sdk");
     const client = await sdk.createClient({
         auth: token,
         integrationName: "adddog-1password-env",
