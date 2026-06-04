@@ -2,7 +2,7 @@
 export { generateCiRefs } from "./ci-refs.js";
 export { hydrateEnv } from "./hydrate.js";
 export { initFromConfig } from "./init.js";
-export { OPENROUTER_ITEM_TBD, openRouterSecrets } from "./openrouter.js";
+export { OPENROUTER_ITEM, openRouterSecrets } from "./openrouter.js";
 export { defineSecrets, resolveSecrets } from "./resolve.js";
 export type {
     EnvironmentConfig,
