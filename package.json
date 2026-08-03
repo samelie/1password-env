@@ -20,7 +20,7 @@
     "skills"
   ],
   "dependencies": {
-    "@1password/sdk": "^0.4.0",
+    "@1password/sdk": "^0.4.1",
     "@commander-js/extra-typings": "^15.0.0",
     "commander": "^15.0.0"
   },
@@ -38,10 +38,10 @@
   },
   "devDependencies": {
     "@adddog/monorepo-consistency": "workspace:*",
-    "@types/node": "^26.1.1",
+    "@types/node": "^26.1.2",
     "@typescript/native-preview": "beta",
-    "bumpp": "^11.1.0",
-    "eslint": "^10.7.0",
+    "bumpp": "^12.1.1",
+    "eslint": "^10.8.0",
     "tsup": "^8.5.1"
   },
   "engines": {
