@@ -1,6 +1,7 @@
 export type OutputFormat = "dotenv" | "shell";
 
 export interface SecretField {
+    item?: string;
     /** env var name, e.g. "COOKIE_SECRET" */
     env: string;
     /** 1Password field name (defaults to env if omitted) */

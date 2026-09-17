@@ -16,7 +16,8 @@ export function generateCiRefs(config: SecretsConfig, envNames: string[]): strin
         for (const f of env.fields) {
             const envKey = typeof f === "string" ? f : f.env;
             const field = typeof f === "string" ? f : (f.field ?? f.env);
-            refs[envKey] = `op://${vault}/${env.item}/${field}`;
+            const item = typeof f === "string" ? env.item : (f.item ?? env.item);
+            refs[envKey] = `op://${vault}/${item}/${field}`;
         }
     }
 

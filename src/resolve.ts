@@ -38,7 +38,8 @@ export async function resolveSecrets(
         const envKey = typeof field === "string" ? field : field.env;
         const fieldName = typeof field === "string" ? field : (field.field ?? field.env);
         const vault = envConfig.vault ?? config.vault;
-        const ref = `op://${vault}/${envConfig.item}/${fieldName}`;
+        const item = typeof field === "string" ? envConfig.item : (field.item ?? envConfig.item);
+        const ref = `op://${vault}/${item}/${fieldName}`;
         result[envKey] = await client.secrets.resolve(ref);
     }
 
